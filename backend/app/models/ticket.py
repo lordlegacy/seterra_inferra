@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Enum, Text
 from sqlalchemy.orm import relationship
-from app.db import Base
+from backend.app.db import Base
 import enum
 
 class TicketStatus(str, enum.Enum):
@@ -17,5 +17,7 @@ class Ticket(Base):
     description = Column(Text)
     status = Column(Enum(TicketStatus), default=TicketStatus.open)
     user_id = Column(Integer, ForeignKey("users.id"))
+    solution = Column(Text, nullable=True)  # 👈 NEW
 
     user = relationship("User", backref="tickets")
+

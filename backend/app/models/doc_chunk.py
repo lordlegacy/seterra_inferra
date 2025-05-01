@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, Text
 from pgvector.sqlalchemy import Vector 
-from app.db import Base
+from backend.app.db import Base
 
 class DocChunk(Base):
     __tablename__ = "doc_chunks"
