@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Enum, Text
 from sqlalchemy.orm import relationship
-from backend.app.db import Base
+from app.db import Base
 import enum
 
 class TicketStatus(str, enum.Enum):

@@ -4,8 +4,24 @@ from app.schemas.ticket import TicketCreate, TicketOut, TicketUpdate
 from app.services.ticket_service import *
 from app.core.deps import get_current_user, get_db
 from app.models.user import User
+from app.services.ticket_service import create_ticket
 
 router = APIRouter()
+
+@router.post("/", response_model=TicketOut)
+def create_ticket_route(
+    ticket_data: TicketCreate,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user)
+):
+    ticket = create_ticket(
+        db,
+        user_id=user.id,
+        title=ticket_data.title,
+        description=ticket_data.description
+    )
+    return ticket
+
 
 @router.post("/", response_model=TicketOut)
 def create(ticket: TicketCreate, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
