@@ -4,6 +4,8 @@ from app.llm.chunking import chunk_text
 from app.llm.embedding import embed_texts
 from app.llm.llm_service import resolve_ticket  # this runs RAG + LLM
 from sqlalchemy.orm import Session
+from app.core.logger import logger
+
 
 
 def get_user_tickets(db: Session, user_id: int):
@@ -29,16 +31,19 @@ def create_ticket(db: Session, user_id: int, title: str, description: str) -> Ti
         description=description,
         user_id=user_id
     )
+    
     db.add(new_ticket)
     db.commit()
     db.refresh(new_ticket)
+    logger.info("Ticket created")
 
-    # Step 2: Run LLM-based resolution and store the solution
+# Step 2: Run LLM-based resolution and store the solution
     result = resolve_ticket(new_ticket.id, db)
     if isinstance(result, dict) and "solutions" in result:
         new_ticket.solution = "\n".join(result["solutions"])
         db.commit()
         db.refresh(new_ticket)
+        logger.info("LLM solution")
 
     # Step 3: Re-embed the ticket with full content (desc + solution)
     full_text = f"{new_ticket.title}\n{new_ticket.description}\n{new_ticket.solution or ''}"
@@ -55,4 +60,5 @@ def create_ticket(db: Session, user_id: int, title: str, description: str) -> Ti
         ))
 
     db.commit()
+    logger.info("Re-embedding")
     return new_ticket

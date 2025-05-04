@@ -5,6 +5,7 @@ from app.services.ticket_service import *
 from app.core.deps import get_current_user, get_db
 from app.models.user import User
 from app.services.ticket_service import create_ticket
+from app.core.logger import logger
 
 router = APIRouter()
 

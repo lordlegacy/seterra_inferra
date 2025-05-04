@@ -22,4 +22,4 @@ class AppLogger:
         return self.logger
 
 # Instantiate once and export
-app_logger = AppLogger().get_logger()
+logger = AppLogger().get_logger()

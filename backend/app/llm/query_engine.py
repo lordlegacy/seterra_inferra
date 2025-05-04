@@ -4,7 +4,8 @@ from sqlalchemy.dialects.postgresql import ARRAY
 from app.llm.embedding import embed_single
 from app.models.ticket_embedding import TicketEmbedding
 from app.models.doc_chunk import DocChunk
-from app.models.web_snippet import WebSnippet
+from app.core.logger import logger
+
 
 # Optional fallback vector if embedding fails
 def fake_vector(dim: int = 1536) -> list[float]:

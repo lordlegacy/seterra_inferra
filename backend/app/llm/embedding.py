@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+from app.core.logger import logger
 load_dotenv() 
 from langchain_nomic import NomicEmbeddings
 import os
@@ -13,7 +14,9 @@ embedder = NomicEmbeddings(
 )
 
 def embed_texts(texts: list[str]) -> list[list[float]]:
+    logger.info(f"Embedding batch of {len(texts)} texts")
     return embedder.embed_documents(texts)
 
 def embed_single(text: str) -> list[float]:
+    logger.info(f"Embedding single text")
     return embedder.embed_query(text)
