@@ -2,8 +2,8 @@ from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 from sqlalchemy.orm import Session
-from app.db.session import SessionLocal
-from app.models.user import User
+from backend.app.db.session import SessionLocal
+from backend.app.models.user import User
 import os
 
 SECRET_KEY = os.getenv("JWT_SECRET_KEY")

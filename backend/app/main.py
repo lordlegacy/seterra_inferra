@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from app.api.v1 import auth, tickets,users,llm
-from app.llm.ingest import ingest_doc
-from app.db import Base, engine
+from backend.app.api.v1 import auth, tickets,users,llm
+from backend.app.llm.ingest import ingest_doc
+from backend.app.db import Base, engine
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -19,3 +19,4 @@ app.include_router(tickets.router, prefix="/api/v1/tickets", tags=["Tickets"])
 app.include_router(users.router, prefix="/api/v1/users", tags=["Users"])
 app.include_router(llm.router, prefix="/api/v1/llm", tags=["LLM"])
 app.include_router(ingest_doc.router, prefix="/api/v1/llm", tags=["Ingestion"])
+ 

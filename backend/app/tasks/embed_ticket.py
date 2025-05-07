@@ -1,9 +1,9 @@
 from sqlalchemy.orm import Session
-from app.db.session import SessionLocal
-from app.models.ticket import Ticket
-from app.models.ticket_embedding import TicketEmbedding
-from app.llm.chunking import chunk_text
-from app.llm.embedding import embed_texts
+from backend.app.db.session import SessionLocal
+from backend.app.models.ticket import Ticket
+from backend.app.models.ticket_embedding import TicketEmbedding
+from backend.app.llm.chunking import chunk_text
+from backend.app.llm.embedding import embed_texts
 
 def embed_all_tickets():
     db: Session = SessionLocal()

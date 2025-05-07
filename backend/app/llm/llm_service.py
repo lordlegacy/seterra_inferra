@@ -1,8 +1,8 @@
 from sqlalchemy.orm import Session
-from app.models.ticket import Ticket
-from app.llm.query_engine import retrieve_context
-from app.llm.client import call_llm  # we’ll stub this for now
-from app.core.logger import logger
+from backend.app.models.ticket import Ticket
+from backend.app.llm.query_engine import retrieve_context
+from backend.app.llm.client import call_llm  # we’ll stub this for now
+from backend.app.core.logger import logger
 
 def build_prompt(ticket_text: str, context_chunks: list[str]) -> str:
     context = "\n\n".join(context_chunks[:10])  # limit for token safety

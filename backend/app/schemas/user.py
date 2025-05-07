@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional
-from app.models.user import UserRole  # Enum with "user", "support", "admin"
+from backend.app.models.user import UserRole  # Enum with "user", "support", "admin"
 
 class UserCreate(BaseModel):
     username: str

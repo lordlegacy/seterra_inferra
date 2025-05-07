@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from backend.app.db import Base
-from app.models.ticket import Ticket
-from app.llm.llm_service import resolve_ticket
-from app.llm import client  # this is where we'll stub `call_llm`
+from backend.app.models.ticket import Ticket
+from backend.app.llm.llm_service import resolve_ticket
+from backend.app.llm import client  # this is where we'll stub `call_llm`
 
 # Step 1: Create in-memory SQLite DB
 engine = create_engine("sqlite:///:memory:", echo=False)

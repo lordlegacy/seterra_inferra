@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, Text, DateTime
 from pgvector.sqlalchemy import Vector
-from app.db import Base
+from backend.app.db import Base
+
 from datetime import datetime
 
 class WebSnippet(Base):

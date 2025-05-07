@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from app.core.logger import logger
+from backend.app.core.logger import logger
 load_dotenv() 
 from langchain_nomic import NomicEmbeddings
 import os

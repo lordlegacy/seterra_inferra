@@ -1,9 +1,9 @@
 from fastapi import APIRouter, UploadFile, File, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.core.deps import get_db
-from app.llm.chunking import chunk_text
-from app.llm.embedding import embed_texts
-from app.models.doc_chunk import DocChunk
+from backend.app.core.deps import get_db
+from backend.app.llm.chunking import chunk_text
+from backend.app.llm.embedding import embed_texts
+from backend.app.models.doc_chunk import DocChunk
 
 import pdfplumber
 import docx

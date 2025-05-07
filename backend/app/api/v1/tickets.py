@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from app.schemas.ticket import TicketCreate, TicketOut, TicketUpdate
-from app.services.ticket_service import *
-from app.core.deps import get_current_user, get_db
-from app.models.user import User
-from app.services.ticket_service import create_ticket
-from app.core.logger import logger
+from backend.app.schemas.ticket import TicketCreate, TicketOut, TicketUpdate
+from backend.app.services.ticket_service import *
+from backend.app.core.deps import get_current_user, get_db
+from backend.app.models.user import User
+from backend.app.services.ticket_service import create_ticket
+from backend.app.core.logger import logger
 
 router = APIRouter()
 
