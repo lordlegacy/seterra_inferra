@@ -1,43 +1,19 @@
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from backend.app.db import Base
-from backend.app.models.ticket import Ticket
-from backend.app.llm.llm_service import resolve_ticket
-from backend.app.llm import client  # this is where we'll stub `call_llm`
+from google import genai
+from google.genai import types
 
-# Step 1: Create in-memory SQLite DB
-engine = create_engine("sqlite:///:memory:", echo=False)
-Session = sessionmaker(bind=engine)
-session = Session()
+"""
+client = genai.Client(api_key="AIzaSyCAevq7ISQK2LoiUn5jO653t4HbssBrTXE")
 
-# Step 2: Create all tables
-Base.metadata.create_all(engine)
-
-# Step 3: Insert a dummy ticket
-dummy_ticket = Ticket(
-    title="Cannot connect to VPN",
-    description="The VPN client shows 'Connection failed' when I try to log in.",
-    user_id=1
+response = client.models.generate_content(
+    model="gemini-2.0-flash",
+    contents="Explain how AI works in a few words",
 )
-session.add(dummy_ticket)
-session.commit()
 
-# Step 4: Monkey-patch call_llm
-def fake_llm(prompt: str):
-    print("Mock LLM called with prompt:")
-    print(prompt[:300])  # truncate
-    return {
-        "summary": "User cannot connect to VPN.",
-        "diagnosis": ["VPN server might be down", "User credentials invalid"],
-        "solutions": ["Check VPN server status", "Reset VPN credentials"],
-        "confidence": 0.91
-    }
+print(response.text)
+"""
 
-client.call_llm = fake_llm  # override the real one
 
-# Step 5: Call resolve_ticket()
-result = resolve_ticket(ticket_id=dummy_ticket.id, db=session)
+response = {'summary': 'The user is unable to print PDF documents.', 'diagnosis': ['Printer is not properly connected or configured.', 'Incorrect printer selected.', 'Printer driver issues.', 'PDF document is corrupted.', 'PDF reader software (e.g., Adobe Acrobat Reader) is outdated or has issues.', 'PDF document has printing restrictions or security settings enabled.', 'Insufficient system resources (memory, disk space).', 'Operating system issues.'], 'solutions': ['Verify that the printer is properly connected to the computer (USB, network) and powered on.', 'Ensure the correct printer is selected in the print dialog box.', 'Restart the printer and the computer.', 'Update or reinstall the printer driver.', 'Try printing a different PDF document to rule out a corrupted file.', 'Try printing the PDF document from a different PDF reader software (e.g., Chrome, Edge, Foxit Reader).', 'Update the PDF reader software to the latest version.', "Check the PDF document's security settings to ensure printing is allowed. If restricted, contact the document creator to remove the restrictions.", 'Ensure sufficient disk space is available on the system drive.', 'Run a system file check to identify and repair corrupted system files.', 'Test printing other types of documents (e.g., Word, text) to isolate the problem to PDFs.', "Contact the printer manufacturer's support or a qualified technician if the problem persists."], 'confidence': 0.9}
 
-# Step 6: Print the result
-print("LLM Result:")
-print(result)
+var1 = response['solutions']
+print(var1)

@@ -1,4 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Enum, Text
+from sqlalchemy.dialects.postgresql import ARRAY
+
 from sqlalchemy.orm import relationship
 from backend.app.db import Base
 
@@ -18,7 +20,7 @@ class Ticket(Base):
     description = Column(Text)
     status = Column(Enum(TicketStatus), default=TicketStatus.open)
     user_id = Column(Integer, ForeignKey("users.id"))
-    solution = Column(Text, nullable=True)  # 👈 NEW
+    solution = Column(ARRAY(String), nullable=True)  # Change from Text to Array of Strings
 
     user = relationship("User", backref="tickets")
 

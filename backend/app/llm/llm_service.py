@@ -43,7 +43,7 @@ def resolve_ticket(ticket_id: int, db: Session) -> dict:
 
     try:
         response_json = call_llm(prompt)  # will mock this for now
-        logger.info("Calling LLM for ticket resolution")
+        logger.info(f"Calling LLM for ticket resolution returned: {response_json}")
 
         return response_json
     except Exception as e:

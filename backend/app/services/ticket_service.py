@@ -5,6 +5,8 @@ from backend.app.llm.embedding import embed_texts
 from backend.app.llm.llm_service import resolve_ticket  # this runs RAG + LLM
 from sqlalchemy.orm import Session
 from backend.app.core.logger import logger
+import json
+
 
 
 
@@ -38,12 +40,21 @@ def create_ticket(db: Session, user_id: int, title: str, description: str) -> Ti
     logger.info("Ticket created")
 
 # Step 2: Run LLM-based resolution and store the solution
-    result = resolve_ticket(new_ticket.id, db)
-    if isinstance(result, dict) and "solutions" in result:
-        new_ticket.solution = "\n".join(result["solutions"])
+
+    results = resolve_ticket(new_ticket.id, db)
+
+    try:
+        new_ticket.solution = results
         db.commit()
         db.refresh(new_ticket)
-        logger.info("LLM solution")
+        logger.info("LLM solution saved")
+        logger.debug(f"Saving LLM solutions: {results}")
+    
+    except Exception as e:
+        logger.error(f"DB commit failed bacause of{e}")
+
+
+
 
     # Step 3: Re-embed the ticket with full content (desc + solution)
     full_text = f"{new_ticket.title}\n{new_ticket.description}\n{new_ticket.solution or ''}"

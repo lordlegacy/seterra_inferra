@@ -79,5 +79,6 @@ def retrieve_context(db: Session, query: str, k: int = 5) -> list[str]:
     tickets = search_ticket_embeddings(db, query_vector, k)
     docs = search_doc_chunks(db, query_vector, k)
     web = search_web_snippets(db, query_vector, k)
+    logger.info(f"ticket RAG: {tickets}, docs RAG: {docs}, web RAG: {web}")
 
     return tickets + docs + web
