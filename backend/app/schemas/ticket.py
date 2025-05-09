@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from enum import Enum
-from typing import Optional
+from typing import Optional, List
 
 class StatusEnum(str, Enum):
     open = "open"
@@ -16,13 +16,16 @@ class TicketUpdate(BaseModel):
     status: StatusEnum
 
 
+from typing import List, Optional
+
 class TicketOut(BaseModel):
     id: int
     title: str
     description: str
     status: StatusEnum
     user_id: int
-    solution: Optional[str] = None  # 👈 Add this
+    solution: Optional[List[str]] = None 
 
     class Config:
         orm_mode = True
+

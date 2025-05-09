@@ -6,7 +6,7 @@ from backend.app.core.logger import logger
 
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 
-def call_llm(prompt: str) -> dict:
+def call_llm(prompt: str) -> list:
     try:
         client = genai.Client(api_key=gemini_api_key)
         logger.info(f"feeding prompt: {prompt}")
@@ -15,12 +15,10 @@ def call_llm(prompt: str) -> dict:
             model="gemini-2.0-flash",
             contents=prompt,
         )
-
         parsed_output = extract_llm_response(response.text)
-        logger.info(f"llm ouput format cleaned: {parsed_output}")
         parsed_output = parsed_output['solutions']
 
-        return {parsed_output}
+        return parsed_output
 
     except Exception as e:
         logger.error(f"Calling LLM failed error: {e}")

@@ -20,7 +20,6 @@ class Ticket(Base):
     description = Column(Text)
     status = Column(Enum(TicketStatus), default=TicketStatus.open)
     user_id = Column(Integer, ForeignKey("users.id"))
-    solution = Column(ARRAY(String), nullable=True)  # Change from Text to Array of Strings
-
+    solution = Column(ARRAY(Text), nullable=True)  
     user = relationship("User", backref="tickets")
 
