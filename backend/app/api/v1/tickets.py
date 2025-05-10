@@ -24,9 +24,6 @@ def create_ticket_route(
     return ticket
 
 
-@router.post("/", response_model=TicketOut)
-def create(ticket: TicketCreate, db: Session = Depends(get_db), user: User = Depends(get_current_user)):
-    return create_ticket(db, ticket.title, ticket.description, user.id)
 
 @router.get("/", response_model=list[TicketOut])
 def list_user_tickets(db: Session = Depends(get_db), user: User = Depends(get_current_user)):
