@@ -13,3 +13,4 @@ def embed_texts(texts: list[str]) -> list[list[float]]:
 
 def embed_query(query: str) -> list[float]:
     return nomic.embed_query(query)
+    
