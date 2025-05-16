@@ -1,4 +1,4 @@
-# 🧠 Seterra Inferra – AI-Powered IT Ticketing Backend
+# Seterra Inferra – AI-Powered IT Ticketing Backend
 
 [![GitHub](https://img.shields.io/badge/repo-github-blue)](https://github.com/lordlegacy/seterra_inferra)
 
